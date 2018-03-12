@@ -1,0 +1,140 @@
+
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+
+import javafx.scene.control.Alert;
+
+import static org.testng.Assert.*;
+import org.openqa.selenium.*;
+
+public class TestNG {
+  private WebDriver driver;
+  private String baseUrl;
+  private boolean acceptNextAlert = true;
+  private StringBuffer verificationErrors = new StringBuffer();
+
+  @BeforeClass(alwaysRun = true)
+  public void setUp() throws Exception {
+	  	  
+			System.out.println("*******************");
+			System.out.println("launching IE browser");
+			System.setProperty("webdriver.ie.driver", "C:\\Program Files\\Java\\IEDriverServer.exe");			
+			DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
+	        ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
+	true);
+	        
+			driver = new InternetExplorerDriver(ieCapabilities);
+			//driver.manage().window().maximize();
+
+			
+
+			//WebDriver webDriver = new InternetExplorerDriver();
+			//System.setProperty("webdriver.edge.driver", "C:\\Program Files\\Java\\IEDriverServer.exe");	
+			//driver = new EdgeDriver();
+			// Setting the browser size
+			driver.manage().window().setSize(new Dimension(1024, 768));
+
+			// Go to wikipedia
+			driver.navigate().to("https://en.wikipedia.org/wiki/Main_Page");
+
+			// Type in the search-field: "WebDriver"
+			driver.findElement(By.id("searchInput")).sendKeys("WebDriver");
+
+			// submitting the search query
+			driver.findElement(By.id("searchInput")).submit();
+
+			// Test if Wikipedia redirects to the correct article:
+			// "Selenium (software)"
+			String textFound = driver.findElement(By.cssSelector("h1"))
+					.getText();
+			if (textFound.contains("Selenium (software)")) {
+				System.out.println("Test passes!");
+			} else {
+				System.out.println("Test fails!");
+			}
+
+			// Waiting a little bit before closing
+			Thread.sleep(7000);
+
+			// Closing the browser and webdriver
+			driver.close();
+			driver.quit();
+
+			
+			
+	//For Firefox tests  
+	//System.setProperty("webdriver.firefox.marionette","C:\\Program Files\\Java\\geckodriver.exe");       
+    //driver = new FirefoxDriver();
+    
+    
+    
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  }
+
+  @Test
+  public void testWeblinks () throws Exception {
+
+	baseUrl = "https://www.yahoo.com/";  
+	System.out.println("Base URL: baseUrl"); 
+    driver.get(baseUrl + "/");
+    driver.findElement(By.id("uh-search-box")).clear();
+    driver.findElement(By.id("uh-search-box")).sendKeys("sports");
+    driver.findElement(By.id("uh-search-button")).click();
+    
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    //driver.findElement(By.id("yui_3_10_0_1_1516837327461_327")).click();
+  }
+
+ 
+@AfterClass(alwaysRun = true)
+  public void tearDown() throws Exception {
+    driver.quit();
+    String verificationErrorString = verificationErrors.toString();
+    if (!"".equals(verificationErrorString)) {
+      fail(verificationErrorString);
+    }
+  }
+
+  @SuppressWarnings("unused")
+private boolean isElementPresent(By by) throws NoSuchElementException {
+    driver.findElement(by);
+      return true;
+  }
+
+  @SuppressWarnings("unused")
+private boolean isAlertPresent() {
+    try {
+      driver.switchTo().alert();
+      return true;
+    } catch (NoAlertPresentException e) {
+      return false;
+    }
+  }
+
+  @SuppressWarnings("unused")
+private String closeAlertAndGetItsText() {
+    try {
+      Alert alert = (Alert) driver.switchTo().alert();
+      String alertText = alert.getContentText();
+      if (acceptNextAlert) {
+        ((org.openqa.selenium.Alert) alert).accept();
+      } else {
+        ((org.openqa.selenium.Alert) alert).dismiss();
+      }
+      return alertText;
+    } finally {
+      acceptNextAlert = true;
+    }
+  }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy package &apos;com.akamai.tests.eccu.tc15280&apos; to &apos;MyWebTest/src&apos;&#x0D;&#x0A;- Original project: &apos;portal-config_manager-test&apos;&#x0D;&#x0A;- Destination element: &apos;MyWebTest/src&apos;&#x0D;&#x0A;- Original element: &apos;portal-config_manager-test/src/com.akamai.tests.eccu.tc15280&apos;" description="Copy package" destination="=MyWebTest/src" element1="/src&lt;com.akamai.tests.eccu.tc15280" flags="589830" fragments="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyPackages" stamp="1516819414929" version="1.0"/>
+</session>

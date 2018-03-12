@@ -1,0 +1,120 @@
+package DroneTestPackage;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.testng.Assert;
+import org.testng.annotations.*;
+import static org.testng.Assert.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class DroneTest {
+	
+	 private WebDriver driver;
+	 private String baseUrl;
+	 private StringBuffer verificationErrors = new StringBuffer();
+     
+
+  @BeforeClass(alwaysRun = true)
+  public void setUp() throws Exception {
+	  System.setProperty("webdriver.chrome.driver", "C:\\\\Program Files\\\\Java\\\\chromedriver.exe");
+	  driver = new ChromeDriver();  
+	  baseUrl = "https://www.dronedeploy.com";
+	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  }
+
+  @Test (enabled = false)
+  public void testDrone() throws Exception {
+		
+    driver.get(baseUrl + "/");
+    Thread.sleep(5000); 
+    driver.findElement(By.linkText("Sign Up")).click();
+    driver.findElement(By.id("name")).clear();
+    driver.findElement(By.id("name")).sendKeys("ye");
+    driver.findElement(By.id("last")).clear();
+    driver.findElement(By.id("last")).sendKeys("lo");
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("yigongl@hotmail.com");
+    driver.findElement(By.id("company")).clear();
+    driver.findElement(By.id("company")).sendKeys("da");
+    driver.findElement(By.id("phone")).clear();
+    driver.findElement(By.id("phone")).sendKeys("6502240121");
+    //driver.findElement(By.id("drone_service_provider")).click();
+ 
+    driver.findElement(By.xpath("//label[contains(text(),'I am a drone service provider')]")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("abc12345");
+    driver.findElement(By.id("confirm_password")).clear();
+    driver.findElement(By.id("confirm_password")).sendKeys("abc12345");
+    
+    driver.findElement(By.xpath("//input[contains(@class, 'select-dropdown') ]")).click();
+    
+    Thread.sleep(1000);
+      
+    List<WebElement> wels = driver.findElements(By.xpath("//ul[contains(@class, 'dropdown-content select-dropdown')]//li//span "));
+    
+    for (WebElement ele: wels) {
+    	 if (ele.getAttribute("innerHTML").equalsIgnoreCase("Agriculture")) {  	 
+    		 ele.click();
+    		 //System.out.println("Values " + ele.getAttribute("innerHTML"));
+    		 Assert.assertEquals(ele.getAttribute("innerHTML"),"Agriculture");
+    		 break;
+    	 }
+    }
+   
+    driver.findElement(By.id("submit")).click();
+    
+    Thread.sleep(1000);
+    
+    driver.findElement(By.linkText("Can we help you recover your password?")).click();
+    driver.findElement(By.id("autofocus")).clear();
+    driver.findElement(By.id("autofocus")).sendKeys("yigongl@hotmail.com-a"); //fail this
+    driver.findElement(By.name("commit")).click();
+    driver.findElement(By.xpath("//button")).click();
+    
+   // Assert.assertEquals();
+  }
+  
+  
+  @Test
+  public void testLogin() throws Exception {
+	  
+	  driver.get(baseUrl + "/");
+	    Thread.sleep(5000); 
+	    driver.findElement(By.linkText("Log In")).click();
+	    
+	    //<input _ngcontent-c10="" class="mat-block mat-input-element mat-form-field-autofill-control ng-pristine ng-invalid ng-touched" formcontrolname="email" id="sign-in-email" matinput="" placeholder="Email" type="email" aria-invalid="true">
+	    
+	    driver.findElement(By.id("sign-in-email")).clear();
+	    driver.findElement(By.id("sign-in-email")).sendKeys("yigongl@hotmail.com");
+	    
+	   // <mat-form-field _ngcontent-c10="" class="mat-input-container mat-form-field ng-tns-c11-0 mat-form-field-type-mat-input mat-form-field-can-float mat-accent ng-pristine ng-invalid mat-input-invalid mat-form-field-invalid ng-touched" color="accent"><div class="mat-input-wrapper mat-form-field-wrapper"><div class="mat-input-flex mat-form-field-flex"><!----><div class="mat-input-infix mat-form-field-infix"><input _ngcontent-c10="" class="mat-block mat-input-element mat-form-field-autofill-control ng-pristine ng-invalid ng-touched" formcontrolname="email" id="sign-in-email" matinput="" placeholder="Email" type="email" aria-invalid="true"><span class="mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"><!----><label class="mat-input-placeholder mat-form-field-placeholder ng-tns-c11-0 mat-empty mat-form-field-empty mat-accent" for="sign-in-email" aria-owns="sign-in-email">Email <!----></label></span></div><!----></div><div class="mat-input-underline mat-form-field-underline"><span class="mat-input-ripple mat-form-field-ripple mat-accent"></span></div><div class="mat-input-subscript-wrapper mat-form-field-subscript-wrapper"><!----><!----><div class="mat-input-hint-wrapper mat-form-field-hint-wrapper ng-tns-c11-0 ng-trigger ng-trigger-transitionMessages" style="opacity: 1; transform: translateY(0%);"><!----><div class="mat-input-hint-spacer mat-form-field-hint-spacer"></div></div></div></div></mat-form-field>
+	    driver.findElement(By.id("sign-in-password")).clear();
+	    driver.findElement(By.id("sign-in-password")).sendKeys("abc12345");
+	    
+	    Thread.sleep(3000);
+	    driver.findElement(By.id("sign-in-dd-button")).click();
+	   
+	   // <a class="nav-link font-bold" href="/app2/dashboard">My Dashboard</a>
+	    Thread.sleep(3000);
+	    
+	    WebElement my_dashboard = driver.findElement(By.partialLinkText("My Dashboard"));
+	    System.out.println("my dashboad ?"  + my_dashboard.getAttribute("innerHTML"));
+	   // assert.assertEquals(my_dashboard.getAttribute("innerHTML"), "My Dashboard");
+	     my_dashboard.click();
+	    
+  }
+  
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() throws Exception {
+   //  driver.quit();
+    String verificationErrorString = verificationErrors.toString();
+    if (!"".equals(verificationErrorString)) {
+      fail(verificationErrorString);
+    }
+  }
+
+}

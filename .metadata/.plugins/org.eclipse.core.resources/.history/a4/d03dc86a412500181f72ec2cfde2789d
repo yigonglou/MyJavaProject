@@ -1,0 +1,83 @@
+package DroneTestPackage;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.testng.Assert;
+import org.testng.annotations.*;
+import static org.testng.Assert.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class DroneTest {
+	
+	 private WebDriver driver;
+	 private String baseUrl;
+	 private StringBuffer verificationErrors = new StringBuffer();
+     
+
+  @BeforeClass(alwaysRun = true)
+  public void setUp() throws Exception {
+	  System.setProperty("webdriver.chrome.driver", "C:\\\\Program Files\\\\Java\\\\chromedriver.exe");
+	  driver = new ChromeDriver();  
+	  baseUrl = "https://www.dronedeploy.com";
+	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  }
+
+  @Test
+  public void testDrone() throws Exception {
+		
+    driver.get(baseUrl + "/");
+    Thread.sleep(5000); 
+    driver.findElement(By.linkText("Sign Up")).click();
+    driver.findElement(By.id("name")).clear();
+    driver.findElement(By.id("name")).sendKeys("ye");
+    driver.findElement(By.id("last")).clear();
+    driver.findElement(By.id("last")).sendKeys("lo");
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("yigongl@hotmail.com");
+    driver.findElement(By.id("company")).clear();
+    driver.findElement(By.id("company")).sendKeys("da");
+    driver.findElement(By.id("phone")).clear();
+    driver.findElement(By.id("phone")).sendKeys("6502240121");
+    //driver.findElement(By.id("drone_service_provider")).click();
+ 
+    driver.findElement(By.xpath("//label[contains(text(),'I am a drone service provider')]")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("abc12345");
+    driver.findElement(By.id("confirm_password")).clear();
+    driver.findElement(By.id("confirm_password")).sendKeys("abc12345");
+    
+    driver.findElement(By.xpath("//input[contains(@class, 'select-dropdown') ]")).click();
+    
+    Thread.sleep(1000);
+      
+    List<WebElement> wels = driver.findElements(By.xpath("//ul[contains(@class, 'dropdown-content select-dropdown')]//li//span "));
+    
+    for (WebElement ele: wels) {
+    	 if (ele.getAttribute("innerHTML").equalsIgnoreCase("Agriculture")) {  	 
+    		 ele.click();
+    		 //System.out.println("Values " + ele.getAttribute("innerHTML"));
+    		 Assert.assertEquals(ele.getAttribute("innerHTML"),"Agriculture");
+    		 break;
+    	 }
+    }
+   
+    driver.findElement(By.id("submit")).click();
+    
+    Thread.sleep(1000);
+    
+   // Assert.assertEquals();
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() throws Exception {
+   //  driver.quit();
+    String verificationErrorString = verificationErrors.toString();
+    if (!"".equals(verificationErrorString)) {
+      fail(verificationErrorString);
+    }
+  }
+
+}

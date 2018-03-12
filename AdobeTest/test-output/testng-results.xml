@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="40435" started-at="2018-02-27T06:18:55Z" finished-at="2018-02-27T06:19:35Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="40435" started-at="2018-02-27T06:18:55Z" finished-at="2018-02-27T06:19:35Z">
+      <class name="MyAdobe.MyAdobeTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:MyAdobe.MyAdobeTest@5c7fa833]" name="setUp" is-config="true" duration-ms="8538" started-at="2018-02-26T22:18:55Z" finished-at="2018-02-26T22:19:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="testAdobe()[pri:0, instance:MyAdobe.MyAdobeTest@5c7fa833]" name="testAdobe" duration-ms="30666" started-at="2018-02-26T22:19:03Z" finished-at="2018-02-26T22:19:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAdobe -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:MyAdobe.MyAdobeTest@5c7fa833]" name="tearDown" is-config="true" duration-ms="1171" started-at="2018-02-26T22:19:34Z" finished-at="2018-02-26T22:19:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- MyAdobe.MyAdobeTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

@@ -1,0 +1,145 @@
+package DroneTestPackage;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import org.testng.annotations.*;
+import static org.testng.Assert.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class DroneTest {
+  private WebDriver driver;
+  private String baseUrl;
+  private StringBuffer verificationErrors = new StringBuffer();
+
+  @BeforeClass(alwaysRun = true)
+  public void setUp() throws Exception {
+	  
+	System.setProperty("webdriver.firefox.marionette","C:\\Program Files\\Java\\geckodriver.exe");  
+    driver = new FirefoxDriver();
+    baseUrl = "https://www.dronedeploy.com/";
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  }
+
+  @Test
+  public void testDrone() throws Exception {
+    
+    driver.get(baseUrl + "/");
+    driver.findElement(By.linkText("Sign Up")).click();
+    driver.findElement(By.id("name")).clear();
+    driver.findElement(By.id("name")).sendKeys("ye");
+    driver.findElement(By.id("last")).clear();
+    driver.findElement(By.id("last")).sendKeys("lo");
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("yy@yahoo.com");
+    driver.findElement(By.id("company")).clear();
+    driver.findElement(By.id("company")).sendKeys("da");
+    driver.findElement(By.id("phone")).clear();
+    driver.findElement(By.id("phone")).sendKeys("6502240121");
+    //driver.findElement(By.id("drone_service_provider")).click();
+ 
+    driver.findElement(By.xpath("//label[contains(text(),'I am a drone service provider')]")).click();
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("abc12345");
+    driver.findElement(By.id("confirm_password")).clear();
+    driver.findElement(By.id("confirm_password")).sendKeys("abc12345");
+    
+    driver.findElement(By.xpath("//input[contains(@class, 'select-dropdown') ]")).click();
+    
+    Thread.sleep(3000);
+    //option
+    
+    //dropdown-content select-dropdown contains(text(), 'Next')]"
+    
+    //driver.FindElement(By.XPath("//*[@id='rightbar']/ul/li[3]/h5"));
+    
+    //driver.findElement(By.xpath("//ul[contains(@class, 'select-dropdown select-dropdown active')/li/span[contains(text()='Agriculture')]]")).click();
+    		
+    //driver.findElement(By.xpath("//*span[contains(text()='Agriculture')]]")).click();
+    
+    driver.findElement(By.cssSelector("li.active > span:nth-child(1)")).click();
+    
+    //li.active > span:nth-child(1)
+    
+    //Select droplist = new Select(driver.findElement(By.xpath("//select[contains(@class, 'select-dropdown active') ] ")));   
+    //droplist.selectByVisibleText("Agriculture");
+   
+    
+    
+    
+    
+    //WebElement mySelectElm = driver.findElement(By.id("select_industry")); 
+    //Select mySelect= new Select(mySelectElm);
+    
+    
+    //List<WebElement> options = mySelect.getOptions();
+    
+    //for (WebElement option : options) {
+    	
+    //	 Actions builder = new Actions(driver);
+    	    //WebElement element = driver.findElement(By.linkText("Agricuture"));
+   // 	    builder.moveToElement(option).build().perform();
+    	
+    	
+        //System.out.println(option.getText()); //Prints "Option", followed by "Not Option"
+        
+        
+      //  Thread.sleep(1000);
+    //}
+    
+   
+    Thread.sleep(6000);
+    
+   
+    
+  
+    //driver.findElement(By.cssSelector("input.select-dropdown.active")).click();
+    //driver.findElement(By.cssSelector("li.active > span")).click();
+    driver.findElement(By.id("submit")).click();
+  
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void tearDown() throws Exception {
+    //driver.quit();
+    String verificationErrorString = verificationErrors.toString();
+    if (!"".equals(verificationErrorString)) {
+      fail(verificationErrorString);
+    }
+  }
+
+ // private boolean isElementPresent(By by) {
+ //   try {
+ //     driver.findElement(by);
+ //     return true;
+ //   } catch (NoSuchElementException e) {
+ //     return false;
+ //   }
+ // }
+
+ // private boolean isAlertPresent() {
+  //  try {
+  //    driver.switchTo().alert();
+  //    return true;
+  //  } catch (NoAlertPresentException e) {
+  //    return false;
+  //  }
+  //}
+
+  //private String closeAlertAndGetItsText() {
+   // try {
+   //   Alert alert = driver.switchTo().alert();
+   //   String alertText = alert.getText();
+   //   if (acceptNextAlert) {
+   //     alert.accept();
+   //   } else {
+   //     alert.dismiss();
+   //   }
+   //   return alertText;
+   // } finally {
+   //   acceptNextAlert = true;
+   // }
+  //}
+}
